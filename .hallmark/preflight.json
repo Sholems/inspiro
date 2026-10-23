@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-16",
+  "framework": "Next.js 16 App Router",
+  "fonts": ["Geist", "Georgia fallback serif"],
+  "palette": ["warm paper", "charcoal", "muted grey", "brand red"],
+  "motion": "motion-cut",
+  "spacing": "existing CSS and Tailwind scale",
+  "preserve": ["font stack", "palette", "spacing", "editorial direction"]
+}

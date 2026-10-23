@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: inspiro_dev
+      POSTGRES_PASSWORD: inspiro
+      POSTGRES_USER: inspiro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inspiro -d inspiro_dev"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "55432:5432"
+    volumes:
+      - inspiro_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  inspiro_postgres_data:

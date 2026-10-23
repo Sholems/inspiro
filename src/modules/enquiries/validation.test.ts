@@ -1,0 +1,5 @@
+import { describe, expect, it } from "vitest";
+import { validateEnquiry } from "./validation";
+const valid = { firstName: "Ada", lastName: "Okafor", email: "ada@example.com", phone: "+2348000000000", organisation: "Example Studio", enquiryType: "Partnership", message: "We would like to discuss a new creative partnership.", consent: true };
+describe("validateEnquiry", () => { it("accepts a complete enquiry", () => expect(validateEnquiry(valid)).toEqual({})); it("rejects unsafe or incomplete submissions", () => expect(validateEnquiry({ ...valid, email: "bad", consent: false, website: "spam" })).toMatchObject({ email: expect.any(String), consent: expect.any(String), website: expect.any(String) })); });
+describe("enquiry limits", () => { it("rejects oversized fields and an unrecognised enquiry type", () => expect(validateEnquiry({ ...valid, firstName: "a".repeat(101), message: "a".repeat(5001), enquiryType: "Unknown" })).toMatchObject({ firstName: expect.any(String), message: expect.any(String), enquiryType: expect.any(String) })); });

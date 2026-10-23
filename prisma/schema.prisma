@@ -1,0 +1,300 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  SUPER_ADMIN
+  MANAGEMENT
+  BUSINESS_DEVELOPMENT
+  PROJECT_MANAGER
+  STAFF
+  CONTENT_EDITOR
+  PROGRAMME_MANAGER
+  EXPERIENCES_MANAGER
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum EnquiryStatus {
+  NEW
+  ASSIGNED
+  CONTACTED
+  QUALIFIED
+  CONVERTED
+  CLOSED
+}
+
+model User {
+  id            String     @id
+  name          String
+  email         String     @unique
+  emailVerified Boolean    @default(false)
+  image         String?
+  role          Role       @default(STAFF)
+  isActive      Boolean    @default(true)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  auditLogs     AuditLog[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verifications")
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  action     String
+  entityType String
+  entityId   String?
+  metadata   Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([actorId, createdAt])
+  @@index([entityType, entityId])
+  @@map("audit_logs")
+}
+
+model Page {
+  id             String        @id @default(cuid())
+  title          String
+  slug           String        @unique
+  summary        String
+  body           String
+  status         ContentStatus @default(DRAFT)
+  seoTitle       String?
+  seoDescription String?
+  publishedAt    DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([status, publishedAt])
+  @@map("pages")
+}
+
+model Service {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  pillar      String
+  summary     String
+  description String
+  status      ContentStatus @default(DRAFT)
+  sortOrder   Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([status, pillar, sortOrder])
+  @@map("services")
+}
+
+model WorkItem {
+  id              String        @id @default(cuid())
+  title           String
+  slug            String        @unique
+  shortDescription String
+  fullDescription String
+  year            Int?
+  category        String
+  clientOrPartner String?
+  location        String?
+  challenge       String?
+  approach        String?
+  outcomes        String?
+  heroImage       String?
+  featured        Boolean       @default(false)
+  status          ContentStatus @default(DRAFT)
+  publishedAt     DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([status, featured, publishedAt])
+  @@map("work_items")
+}
+
+model Article {
+  id             String        @id @default(cuid())
+  title          String
+  slug           String        @unique
+  excerpt        String
+  body           String
+  authorName     String
+  topic          String
+  featuredImage  String?
+  status         ContentStatus @default(DRAFT)
+  publishedAt    DateTime?
+  seoTitle       String?
+  seoDescription String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([status, publishedAt])
+  @@map("articles")
+}
+
+model CELiveEpisode {
+  id                String        @id @default(cuid())
+  title             String
+  slug              String        @unique
+  episodeNumber     Int?
+  guestName         String?
+  guestOrganisation String?
+  summary           String
+  videoUrl          String?
+  transcript        String?
+  status            ContentStatus @default(DRAFT)
+  publishedAt       DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([status, publishedAt])
+  @@map("celive_episodes")
+}
+
+model TeamMember {
+  id        String        @id @default(cuid())
+  name      String
+  slug      String        @unique
+  roleTitle String
+  biography String
+  imageUrl  String?
+  sortOrder Int           @default(0)
+  status    ContentStatus @default(DRAFT)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status, sortOrder])
+  @@map("team_members")
+}
+
+model MediaAsset {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  mimeType  String
+  altText   String?
+  isPublic  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("media_assets")
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+model Contact {
+  id          String        @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String        @unique
+  phone       String
+  organisation String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  enquiries   Enquiry[]
+  activities  CRMActivity[]
+
+  @@map("contacts")
+}
+
+model Enquiry {
+  id                     String        @id @default(cuid())
+  contactId              String
+  contact                Contact       @relation(fields: [contactId], references: [id], onDelete: Restrict)
+  enquiryType            String
+  message                String
+  preferredContactMethod String?
+  budgetRange            String?
+  timeline               String?
+  projectLocation        String?
+  consent                Boolean
+  status                 EnquiryStatus @default(NEW)
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+  activities             CRMActivity[]
+
+  @@index([status, createdAt])
+  @@index([contactId])
+  @@map("enquiries")
+}
+
+model CRMActivity {
+  id        String   @id @default(cuid())
+  contactId String
+  contact   Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  enquiryId String?
+  enquiry   Enquiry? @relation(fields: [enquiryId], references: [id], onDelete: SetNull)
+  type      String
+  summary   String
+  createdAt DateTime @default(now())
+
+  @@index([contactId, createdAt])
+  @@index([enquiryId])
+  @@map("crm_activities")
+}

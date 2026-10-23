@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Inspiro Digital Platform
 
-## Getting Started
+Inspiro's public website and internal operating platform, built as a modular monolith. Phase 0 provides local PostgreSQL, staff authentication, protected routes, code-defined RBAC, audit foundations, error states, and automated checks. The Phase 1 baseline adds a database-backed public website, protected content studio, and transactional enquiry capture.
 
-First, run the development server:
+## Stack
 
-```bash
+- Next.js 16 App Router and TypeScript
+- Tailwind CSS 4
+- PostgreSQL and Prisma 7 with the `pg` driver adapter
+- Better Auth with email/password, email verification, and password-reset hooks
+- Resend for account email delivery
+
+## Local Setup
+
+Prerequisites: Node.js 22 or later, npm, and Docker Desktop.
+
+```powershell
+cd apps/web
+npm install
+npm run setup:local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`setup:local` creates an ignored `.env`, starts PostgreSQL on port `55432`, applies migrations, seeds starter website content without overwriting later edits, and provisions the local administrator. Sign in at `/login` using `admin@inspiro.local` and `InspiroLocal2026!`. These credentials are local-only and must never be reused outside development. Content editors work from `/dashboard/content`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Checks
 
-## Learn More
+```powershell
+npm run lint
+npm run typecheck
+npm run test
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Product Scope
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Launch foundation: responsive public website, authentication and roles, structured CMS, contacts, organisations, enquiries, projects, tasks, secure files, SEO, and analytics.
+- Follow-on: full opportunity pipeline, programme operations, experience bookings, richer reporting, and integrations.
+- Explicitly excluded from V1: accounting, payroll, HRMS, procurement ERP, complex inventory, and a full email client.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Notes
 
-## Deploy on Vercel
+- [Architecture](./ARCHITECTURE.md)
+- [Setup](./SETUP.md)
+- [Database](./DATABASE.md)
+- [Permissions](./PERMISSIONS.md)
+- [Deployment](./DEPLOYMENT.md)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Public sign-up is disabled. Local administrator provisioning is repeatable through `npm run setup:local`; production staff provisioning remains an administration feature for a later phase. The homepage uses temporary remote photography. Configure approved assets, contact details, production secrets, an email sender, and hosting resources before launch. No production statistics, testimonials, or project outcomes are included.
