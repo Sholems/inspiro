@@ -1,5 +1,5 @@
-/* Hallmark · macrostructure: split statement · tone: culture-forward · anchor hue: Inspiro red */
-/* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 */
+/* Hallmark · macrostructure: statement canvas · tone: culture-forward · anchor hue: Inspiro red */
+/* Hallmark · pre-emit critique: P4 H5 E4 S5 R5 V4 */
 :root {
   --color-bg: oklch(17% 0.018 248);
   --color-panel: oklch(22% 0.02 248);
@@ -7,7 +7,7 @@
   --color-muted: oklch(76% 0.015 82);
   --color-accent: oklch(61% 0.19 28);
   --color-rule: oklch(97% 0.01 82 / .18);
-  --font-display: "Arial Narrow", "Arial", sans-serif;
+  --font-display: "Arial Narrow", Arial, sans-serif;
   --font-body: Arial, Helvetica, sans-serif;
 }
 * { box-sizing: border-box; }
@@ -15,41 +15,51 @@ html, body { margin: 0; min-width: 320px; overflow-x: clip; }
 body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
 a { color: inherit; text-decoration: none; }
 a:focus-visible { outline: 3px solid var(--color-text); outline-offset: 4px; }
-.landing { display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(0, .78fr); min-height: 100svh; }
-.landing-content { display: flex; flex-direction: column; min-width: 0; padding: clamp(2rem, 4vw, 4.5rem) clamp(1.4rem, 5vw, 6rem) 1.7rem; }
-.brand img { display: block; height: auto; max-width: 325px; width: min(68vw, 325px); }
-.message { margin: auto 0 clamp(3rem, 7vh, 6rem); padding-top: clamp(3rem, 8vh, 7rem); }
-.eyebrow { align-items: center; color: var(--color-muted); display: flex; font-size: .72rem; font-weight: 700; gap: .7rem; letter-spacing: .14em; margin: 0 0 1.65rem; text-transform: uppercase; }
+.landing { margin: 0 auto; max-width: 1600px; min-height: 100svh; padding: 0 clamp(1.3rem, 5vw, 6rem); }
+.brand-bar { align-items: center; border-bottom: 1px solid var(--color-rule); display: flex; justify-content: space-between; min-height: 132px; }
+.brand-bar img { display: block; height: auto; margin-left: -2.1rem; max-width: 340px; width: min(69vw, 340px); }
+.brand-note { color: var(--color-muted); font-size: .7rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; white-space: nowrap; }
+.brand-note span { color: var(--color-accent); margin: 0 .3rem; }
+.message { padding: clamp(5rem, 11vh, 10rem) 0 clamp(5rem, 9vh, 9rem); }
+.eyebrow { align-items: center; color: var(--color-muted); display: flex; font-size: .73rem; font-weight: 700; gap: .8rem; letter-spacing: .14em; margin: 0 0 clamp(1.5rem, 3vw, 2.7rem); text-transform: uppercase; }
 .status-dot { background: var(--color-accent); border-radius: 50%; flex: 0 0 8px; height: 8px; width: 8px; }
-h1 { font-family: var(--font-display); font-size: clamp(3.6rem, 6.5vw, 7.7rem); font-stretch: condensed; font-weight: 800; letter-spacing: -.065em; line-height: .96; margin: 0; max-width: 11ch; overflow-wrap: anywhere; text-transform: uppercase; }
+h1 { font-family: var(--font-display); font-size: clamp(4rem, 10vw, 10.5rem); font-weight: 800; letter-spacing: -.075em; line-height: .91; margin: 0; overflow-wrap: anywhere; text-transform: uppercase; }
 h1 span { color: var(--color-accent); }
-.lead { color: var(--color-muted); font-size: clamp(1rem, 1.35vw, 1.2rem); line-height: 1.65; margin: 2rem 0 0; max-width: 36rem; }
+.message-bottom { align-items: end; display: flex; gap: 3rem; justify-content: space-between; margin-top: clamp(2.6rem, 5vw, 5rem); }
+.lead { color: var(--color-muted); font-size: clamp(1.1rem, 1.5vw, 1.4rem); line-height: 1.6; margin: 0; max-width: 36rem; }
+.anniversary { align-items: center; border-left: 1px solid var(--color-rule); display: flex; flex: 0 0 auto; gap: 1rem; margin: 0; padding-left: 2rem; }
+.anniversary strong { color: var(--color-accent); font-family: var(--font-display); font-size: clamp(4rem, 6vw, 6rem); letter-spacing: -.09em; line-height: .9; }
+.anniversary span { font-size: .68rem; font-weight: 700; letter-spacing: .07em; line-height: 1.55; text-transform: uppercase; }
 .socials { border-top: 1px solid var(--color-rule); }
-.socials-heading { align-items: center; display: flex; justify-content: space-between; padding: 1.25rem 0; }
-.socials-heading h2 { font-size: .82rem; letter-spacing: .08em; margin: 0; text-transform: uppercase; }
-.socials-heading p { color: var(--color-muted); font-size: .72rem; margin: 0; }
-.social-grid { display: grid; gap: .5rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.social-grid a { align-items: center; background: var(--color-panel); display: grid; gap: .35rem .5rem; grid-template-columns: minmax(0, 1fr) auto; min-height: 78px; padding: 1rem 1.1rem; transition: background-color 160ms ease, transform 160ms ease; }
-.social-name { font-size: .93rem; font-weight: 700; }
-.social-handle { color: var(--color-muted); font-size: .75rem; grid-column: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.arrow { color: var(--color-accent); font-size: 1.2rem; grid-column: 2; grid-row: 1 / 3; }
+.socials-heading { align-items: end; display: flex; justify-content: space-between; padding: 2rem 0 1.5rem; }
+.socials-heading h2 { font-family: var(--font-display); font-size: clamp(1.7rem, 2.8vw, 2.5rem); letter-spacing: -.045em; margin: 0 0 .35rem; text-transform: uppercase; }
+.socials-heading p { color: var(--color-muted); font-size: .85rem; margin: 0; }
+.socials-mark { color: var(--color-accent); font-size: 2rem; line-height: 1; }
+.social-grid { display: grid; gap: .55rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.social-grid a { align-items: start; background: var(--color-panel); display: grid; gap: .75rem .5rem; grid-template-columns: minmax(0, 1fr) auto; min-height: 132px; padding: 1.3rem; transition: background-color 160ms ease, transform 160ms ease; }
+.social-name { font-size: 1rem; font-weight: 700; }
+.social-handle { align-self: end; color: var(--color-muted); font-size: .76rem; grid-column: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.arrow { color: var(--color-accent); font-size: 1.2rem; grid-column: 2; grid-row: 1; }
 .social-grid a:active { transform: translateY(1px); }
-.footer { border-top: 1px solid var(--color-rule); color: var(--color-muted); display: flex; font-size: .66rem; gap: 1rem; justify-content: space-between; letter-spacing: .04em; margin-top: 2.3rem; padding-top: 1.3rem; }
-.visual { background: linear-gradient(180deg, oklch(17% .018 248 / .12), oklch(17% .018 248 / .72)), url("./assets/live-ensemble.jpeg") center / cover; min-height: 100%; position: relative; }
-.visual::before { background: var(--color-accent); content: ""; height: 74px; left: 0; position: absolute; top: 0; width: 4px; }
-.visual-caption { bottom: 2.5rem; color: var(--color-text); font-size: .74rem; font-weight: 700; left: 2.5rem; letter-spacing: .08em; position: absolute; text-transform: uppercase; }
+.footer { border-top: 1px solid var(--color-rule); color: var(--color-muted); display: flex; font-size: .68rem; gap: 1rem; justify-content: space-between; letter-spacing: .04em; margin-top: 2.5rem; padding: 1.5rem 0 2rem; }
 @media (hover: hover) { .social-grid a:hover { background: oklch(29% .025 248); transform: translateY(-2px); } }
-@media (max-width: 800px) {
-  .landing { grid-template-columns: minmax(0, 1fr); }
-  .landing-content { min-height: 100svh; padding: 1.6rem 6% 1.5rem; }
-  .message { margin: 4rem 0 3.5rem; padding-top: 0; }
-  h1 { font-size: clamp(3.5rem, 12vw, 6rem); }
-  .visual { min-height: 44vh; }
+@media (max-width: 850px) {
+  .brand-bar { min-height: 105px; }
+  .message { padding: 5rem 0; }
+  h1 { font-size: clamp(3.5rem, 11vw, 7rem); }
+  .social-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .social-grid a { min-height: 110px; }
 }
-@media (max-width: 420px) {
-  .social-grid { grid-template-columns: minmax(0, 1fr); }
-  .social-grid a { min-height: 70px; }
+@media (max-width: 560px) {
+  .brand-bar { align-items: start; flex-direction: column; gap: 0; padding-bottom: 1.2rem; }
+  .brand-bar img { margin: 0 0 0 -1.4rem; width: min(78vw, 310px); }
+  .brand-note { font-size: .62rem; }
+  .message { padding: 4.7rem 0 4.5rem; }
+  h1 { font-size: clamp(3.35rem, 12.3vw, 5.6rem); }
+  .message-bottom { align-items: start; flex-direction: column; gap: 2.5rem; }
+  .anniversary { padding-left: 1.2rem; }
+  .social-grid a { min-height: 98px; padding: 1rem; }
   .footer { flex-direction: column; }
-  .visual { min-height: 38vh; }
 }
+@media (max-width: 360px) { .social-grid { grid-template-columns: minmax(0, 1fr); } .social-grid a { min-height: 82px; } }
 @media (prefers-reduced-motion: reduce) { .social-grid a { transition: none; } }
