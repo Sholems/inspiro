@@ -26,11 +26,36 @@ const work = [
   { slug: "inspiro-creative-hub", title: "Inspiro Creative Hub", shortDescription: "A platform for creative enterprise, learning and connection.", fullDescription: "A platform designed to support creative people, ideas and enterprise.", category: "Platform", location: "Lagos, Nigeria", featured: true },
 ];
 
+const event = {
+  slug: "ayo-solanke-live-in-lagos",
+  title: "Ayo Solanke Live in Lagos",
+  category: "Lagos International Jazz Festival presents",
+  summary: "One night of live performance, artist interviews and jazz conversations.",
+  description: "The Lagos International Jazz Festival presents a special session with legendary saxophonist Ayo Solanke. Come for the music, the stories and an evening rooted in Africa’s enduring jazz tradition.",
+  image: "/images/events/ayo-solanke-live.jpeg",
+  date: new Date("2026-11-01T00:00:00.000Z"),
+  time: "6:00 PM",
+  venue: "Inspiro Creative Hub",
+  address: "LSDPC Shop 29, 2B Adelebu Street, Alhaji Masha Roundabout, Surulere, Lagos",
+  ticketType: "PAID" as const,
+  price: 10000,
+  availability: "Limited seats available",
+  phone: "09029221980",
+  whatsapp: "08061396417",
+};
+
 async function main() {
   for (const page of pages) await prisma.page.upsert({ where: { slug: page.slug }, create: { ...page, status: "PUBLISHED", publishedAt: new Date() }, update: {} });
   for (const service of services) await prisma.service.upsert({ where: { slug: service.slug }, create: { ...service, status: "PUBLISHED" }, update: {} });
   for (const item of work) await prisma.workItem.upsert({ where: { slug: item.slug }, create: { ...item, status: "PUBLISHED", publishedAt: new Date() }, update: {} });
+  await prisma.event.upsert({ where: { slug: event.slug }, create: { ...event, status: "PUBLISHED", publishedAt: new Date() }, update: {} });
   await prisma.teamMember.upsert({ where: { slug: "ayoola-sadare" }, create: { slug: "ayoola-sadare", name: "Ayoola Sadare", roleTitle: "Founder & CEO", biography: "Founder and CEO of Inspiro, established in Lagos in 2001.", status: "PUBLISHED" }, update: {} });
+  const projectOwner = await prisma.user.findFirst({ where: { role: "PROJECT_MANAGER", isActive: true } });
+  if (projectOwner) {
+    const project = await prisma.project.upsert({ where: { slug: "inspiro-25-next-chapter" }, create: { name: "Inspiro 25 — Next chapter", slug: "inspiro-25-next-chapter", summary: "Shape the next chapter of Inspiro through a clear public story, programme calendar and partnership pipeline.", clientName: "Inspiro", status: "ACTIVE", ownerId: projectOwner.id }, update: { ownerId: projectOwner.id } });
+    await prisma.projectTask.upsert({ where: { id: "seed-project-task-public-story" }, create: { id: "seed-project-task-public-story", projectId: project.id, title: "Review public story and launch sequence", status: "IN_PROGRESS", assigneeId: projectOwner.id }, update: { projectId: project.id, assigneeId: projectOwner.id } });
+    await prisma.projectTask.upsert({ where: { id: "seed-project-task-programme" }, create: { id: "seed-project-task-programme", projectId: project.id, title: "Confirm the next programme calendar", status: "TODO", assigneeId: projectOwner.id }, update: { projectId: project.id, assigneeId: projectOwner.id } });
+  }
 }
 
 main().then(() => prisma.$disconnect()).catch(async (error) => { console.error(error); await prisma.$disconnect(); process.exit(1); });

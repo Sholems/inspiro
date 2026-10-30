@@ -14,6 +14,20 @@ Maintain isolated Development, Staging, and Production environments. Use Vercel 
 - Run lint, typecheck, tests, and production build in CI before deployment.
 - Verify SEO metadata, sitemap/robots behavior, accessibility, performance, and analytics consent/data minimisation.
 
+## Ticketing and Paystack
+
+Paid events use Paystack for checkout. Set `PAYSTACK_SECRET_KEY` in the hosting provider as a server-only secret (`sk_test_...` in staging, `sk_live_...` in production). Set the public site URL so the checkout callback can return to the correct domain.
+
+Register the Paystack webhook endpoint below in the Paystack dashboard and keep it on HTTPS in production:
+
+```text
+https://your-domain.example/api/payments/paystack
+```
+
+The callback verifies the transaction server-side before issuing tickets. The webhook verifies Paystack's HMAC SHA512 signature, checks the paid amount against the order, and is safe to receive more than once. Test both the browser callback and webhook flow with Paystack test mode before switching to live keys.
+
+Optional confirmation emails require `RESEND_API_KEY` and `EMAIL_FROM`. Without them, tickets are still issued and remain available in `/dashboard/tickets` for staff check-in.
+
 ## Current State
 
 No cloud resources or production deployment are configured. Do not deploy until the actual domain, database, email sender, legal copy, and approved brand assets are supplied.

@@ -28,7 +28,7 @@ These credentials are intentionally limited to local development.
 
 ## Environment Configuration
 
-The Docker database listens on host port `55432` to avoid collisions with an existing PostgreSQL installation. `setup:local` refuses non-local database hosts. Configure Resend values to exercise password-reset and verification delivery; the local bootstrap account is marked verified without sending email. Storage, monitoring, and analytics credentials are only needed when their integrations are implemented. Do not put secrets in `NEXT_PUBLIC_*` variables.
+The Docker database listens on host port `55833` to avoid collisions with other local PostgreSQL installations. `setup:local` refuses non-local database hosts. Configure Resend values to exercise password-reset and verification delivery; the local bootstrap account is marked verified without sending email. Storage, monitoring, and analytics credentials are only needed when their integrations are implemented. Do not put secrets in `NEXT_PUBLIC_*` variables.
 
 ## Validation
 

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SocialLinks } from "./social-links";
+import { FloatingActions } from "./floating-actions";
 
 export function SiteFooter() {
   const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
@@ -8,14 +10,16 @@ export function SiteFooter() {
     <div className="footer-grid">
       <div className="footer-brand">
         <Link className="brand-logo brand-logo-footer" href="/" aria-label="Inspiro home">
-          <Image src="/images/inspiro-lightbulb-wordmark-footer.png" alt="Inspiro — Creative Economy Strategy & Development" width={2176} height={750} />
+          <Image src="/images/inspiro-lightbulb-wordmark-footer.webp" alt="Inspiro — Creative Economy Strategy & Development" width={2176} height={750} />
         </Link>
         <p>Established in 2001, we bring experience across marketing, branding, media, entertainment, events, festivals and creative enterprise development.</p>
+        <SocialLinks compact />
       </div>
       <nav className="footer-column" aria-label="Explore">
         <h2>Explore</h2>
         <Link href="/what-we-do">What we do</Link>
         <Link href="/gallery">Photo gallery</Link>
+        <Link href="/events">Events &amp; tickets</Link>
         <Link href="/our-work">Our work</Link>
         <Link href="/about">About Inspiro</Link>
         <Link href="/who-we-work-with">Who we work with</Link>
@@ -35,6 +39,7 @@ export function SiteFooter() {
         {contactEmail ? <a href={`mailto:${contactEmail}`}>{contactEmail}</a> : <Link href="/contact">Send an enquiry ↗</Link>}
       </div>
     </div>
-    <div className="footer-base"><span>© Inspiro 2026</span><span>Creative Economy Strategy &amp; Development</span><span>See Beyond, Go Beyond, Make It Happen!</span></div>
+    <div className="footer-base"><span>© Inspiro 2026</span><span>Creative Economy Strategy &amp; Development</span><span><Link href="/privacy">Privacy</Link> · <Link href="/terms">Terms</Link></span></div>
+    <FloatingActions />
   </footer>;
 }

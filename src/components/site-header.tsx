@@ -13,6 +13,7 @@ const groups = [
     { href: "/how-we-work", label: "How we work", description: "Our approach" },
   ] },
   { id: "discover", label: "Discover", items: [
+    { href: "/events", label: "Events & tickets", description: "Reserve your place" },
     { href: "/experiences", label: "Experiences", description: "Platforms and moments" },
     { href: "/gallery", label: "Photo gallery", description: "Inspiro in pictures" },
     { href: "/insights", label: "Insights", description: "Ideas and perspectives" },
@@ -26,7 +27,6 @@ export function SiteHeader() {
   const headerRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
 
-  useEffect(() => { setMenuOpen(false); setOpenGroup(null); }, [pathname]);
   useEffect(() => {
     const onPointerDown = (event: PointerEvent) => {
       if (!headerRef.current?.contains(event.target as Node)) { setMenuOpen(false); setOpenGroup(null); }
@@ -51,20 +51,23 @@ export function SiteHeader() {
     </div>
   </div>;
 
-  return <header className="site-header public-header" ref={headerRef}>
-    <Link className="brand-logo brand-logo-header" href="/" aria-label="Inspiro home" onClick={closeNavigation}>
-      <Image src="/images/inspiro-lightbulb-logo.png" alt="Inspiro" width={2000} height={750} priority />
-    </Link>
-    <button className="menu-toggle" type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => { setMenuOpen(!menuOpen); setOpenGroup(null); }}>
-      <span aria-hidden="true">{menuOpen ? "Close" : "Menu"}</span><span className="menu-toggle-icon" aria-hidden="true">{menuOpen ? "×" : "☰"}</span>
-    </button>
-    <nav className={`main-nav${menuOpen ? " main-nav-open" : ""}`} id="main-navigation" aria-label="Main navigation">
-      {renderGroup(groups[0])}
-      <Link className="nav-direct" href="/our-work" aria-current={pathname === "/our-work" ? "page" : undefined} onClick={closeNavigation}>Our work</Link>
-      {renderGroup(groups[1])}
-      <Link className="nav-direct" href="/about" aria-current={pathname === "/about" ? "page" : undefined} onClick={closeNavigation}>About us</Link>
-      <Link className="mobile-nav-contact" href="/contact" onClick={closeNavigation}>Let&apos;s talk <span aria-hidden="true">↗</span></Link>
-    </nav>
-    <Link className="header-cta" href="/contact" onClick={closeNavigation}>Let&apos;s talk <span aria-hidden="true">↗</span></Link>
-  </header>;
+  return <>
+    <a className="skip-link" href="#main-content">Skip to content</a>
+    <header className="site-header public-header" ref={headerRef}>
+      <Link className="brand-logo brand-logo-header" href="/" aria-label="Inspiro home" onClick={closeNavigation}>
+        <Image src="/images/inspiro-lightbulb-logo.webp" alt="Inspiro" width={2000} height={750} priority />
+      </Link>
+      <button className="menu-toggle" type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => { setMenuOpen(!menuOpen); setOpenGroup(null); }}>
+        <span aria-hidden="true">{menuOpen ? "Close" : "Menu"}</span><span className={`menu-toggle-icon${menuOpen ? " menu-toggle-icon-close" : ""}`} aria-hidden="true"><i /><i /><i /></span>
+      </button>
+      <nav className={`main-nav${menuOpen ? " main-nav-open" : ""}`} id="main-navigation" aria-label="Main navigation">
+        {renderGroup(groups[0])}
+        <Link className="nav-direct" href="/our-work" aria-current={pathname === "/our-work" ? "page" : undefined} onClick={closeNavigation}>Our work</Link>
+        {renderGroup(groups[1])}
+        <Link className="nav-direct" href="/about" aria-current={pathname === "/about" ? "page" : undefined} onClick={closeNavigation}>About us</Link>
+        <Link className="mobile-nav-contact" href="/contact" onClick={closeNavigation}>Let&apos;s talk <span aria-hidden="true">↗</span></Link>
+      </nav>
+      <Link className="header-cta" href="/contact" onClick={closeNavigation}>Let&apos;s talk <span aria-hidden="true">↗</span></Link>
+    </header>
+  </>;
 }

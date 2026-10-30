@@ -17,6 +17,7 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:bootstrap": "tsx scripts/bootstrap-admin.ts",
+    "db:bootstrap:roles": "tsx scripts/bootstrap-role-users.ts",
     "db:seed": "tsx scripts/seed-content.ts"
   },
   "dependencies": {

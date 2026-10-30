@@ -8,7 +8,7 @@ const defaults = {
   ADMIN_NAME: "Inspiro Administrator",
   ADMIN_PASSWORD: "InspiroLocal2026!",
   BETTER_AUTH_URL: "http://localhost:3000",
-  DATABASE_URL: "postgresql://inspiro:inspiro@localhost:55432/inspiro_dev",
+  DATABASE_URL: "postgresql://inspiro:inspiro@localhost:55833/inspiro_dev",
 };
 
 if (!existsSync(envPath)) {

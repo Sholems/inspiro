@@ -162,7 +162,7 @@
 /* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 */
 .public-site .home-gallery { background: var(--color-culture-light); color: var(--color-culture-ink); padding: clamp(5rem, 8vw, 8rem) 7%; }
 .public-site .home-gallery-heading { align-items: end; display: grid; gap: 2rem; grid-template-columns: minmax(0, 1.4fr) minmax(0, .6fr); margin-bottom: 2.5rem; }
-.public-site .home-gallery-heading h2 { font-size: clamp(3.5rem, 7vw, 7rem); letter-spacing: -.06em; line-height: .98; margin: .8rem 0 0; text-transform: uppercase; }
+.public-site .home-gallery-heading h2 { font-size: clamp(3rem, 5.5vw, 5.6rem); letter-spacing: -.06em; line-height: .98; margin: .8rem 0 0; text-transform: uppercase; }
 .public-site .home-gallery-heading h2 span { color: var(--color-culture-accent); }
 .public-site .home-gallery-heading > div:last-child p { font-size: 1rem; line-height: 1.6; margin: 0 0 1.5rem; max-width: 25rem; }
 .public-site .home-gallery-grid { display: grid; gap: .65rem; grid-template-columns: 1.25fr .85fr .85fr; }

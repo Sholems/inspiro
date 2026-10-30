@@ -35,7 +35,7 @@ export function ContactForm() {
       {state.errors?.message && <small id="message-error">{state.errors.message}</small>}
     </label>
     <input className="honeypot" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-    <label className="consent" htmlFor="consent"><input id="consent" type="checkbox" name="consent" required aria-invalid={Boolean(state.errors?.consent)} aria-describedby={state.errors?.consent ? "consent-error" : undefined} /> I agree that Inspiro may use these details to respond to my enquiry.</label>
+    <label className="consent" htmlFor="consent"><input id="consent" type="checkbox" name="consent" required aria-invalid={Boolean(state.errors?.consent)} aria-describedby={state.errors?.consent ? "consent-error" : undefined} /> I agree that Inspiro may use these details to respond to my enquiry. See our <a href="/privacy">Privacy Policy</a>.</label>
     {state.errors?.consent && <small id="consent-error">{state.errors.consent}</small>}
     <button className="form-submit" type="submit" disabled={pending}>{pending ? "Sending…" : "Send enquiry ↗"}</button>
   </form>;

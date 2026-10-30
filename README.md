@@ -23,7 +23,9 @@ npm run dev
 
 Open http://localhost:3000.
 
-`setup:local` creates an ignored `.env`, starts PostgreSQL on port `55432`, applies migrations, seeds starter website content without overwriting later edits, and provisions the local administrator. Sign in at `/login` using `admin@inspiro.local` and `InspiroLocal2026!`. These credentials are local-only and must never be reused outside development. Content editors work from `/dashboard/content`.
+`setup:local` creates an ignored `.env`, starts PostgreSQL on port `55833`, applies migrations, seeds starter website content without overwriting later edits, and provisions the local administrator. Sign in at `/login` using `admin@inspiro.local` and `InspiroLocal2026!`. These credentials are local-only and must never be reused outside development. Content editors work from `/dashboard/content`.
+
+To create local accounts for every dashboard role, run `npm run db:bootstrap:roles`. The command is development-only, marks the accounts verified, and prints the generated credentials. These accounts must never be created in production.
 
 ## Checks
 

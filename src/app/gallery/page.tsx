@@ -12,7 +12,7 @@ export const metadata = {
 export default function GalleryPage() {
   return <div className="public-site">
     <SiteHeader />
-    <main className="gallery-page">
+    <main className="gallery-page" id="main-content">
       <header className="gallery-page-intro">
         <Link href="/" className="gallery-back">← Back to home</Link>
         <p className="eyebrow">Inspiro / In pictures</p>

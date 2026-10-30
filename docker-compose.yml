@@ -11,7 +11,7 @@ services:
       timeout: 3s
       retries: 20
     ports:
-      - "55432:5432"
+      - "55833:5432"
     volumes:
       - inspiro_postgres_data:/var/lib/postgresql/data
 
