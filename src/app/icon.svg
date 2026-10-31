@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Inspiro">
+  <rect width="64" height="64" rx="14" fill="#191a18"/>
+  <circle cx="32" cy="28" r="19" fill="none" stroke="#e5392f" stroke-width="5"/>
+  <path d="M37 13 23 30h10l-6 14 14-18H31z" fill="#f4f1eb"/>
+  <path d="M25 50h14M28 55h8" fill="none" stroke="#f4f1eb" stroke-linecap="round" stroke-width="3"/>
+</svg>

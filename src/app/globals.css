@@ -504,6 +504,7 @@ h1 em, h2 em { color: #e97867; font-family: var(--font-serif); font-style: norma
 .footer-brand .social-links { margin-top: 1.5rem; }
 .social-links a { align-items: center; border: 1px solid color-mix(in oklch, var(--paper) 30%, transparent); border-radius: 999px; color: var(--paper); display: inline-flex; font-size: .72rem; font-weight: 750; height: 2.35rem; justify-content: center; opacity: .8; text-transform: lowercase; transition: background 180ms ease, border-color 180ms ease, color 180ms ease, opacity 180ms ease; width: 2.35rem; }
 .social-links svg { height: 1rem; width: 1rem; }
+.sr-only { border: 0; clip: rect(0, 0, 0, 0); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; white-space: nowrap; width: 1px; }
 .social-links a:hover, .social-links a:focus-visible { background: var(--red); border-color: var(--red); color: #fff; opacity: 1; }
 .floating-actions { align-items: end; bottom: max(1.25rem, env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: .65rem; position: fixed; right: max(1.25rem, env(safe-area-inset-right)); z-index: 30; }
 .floating-whatsapp, .floating-scroll-top { align-items: center; box-shadow: 0 10px 24px rgb(25 26 24 / .16); display: inline-flex; justify-content: center; min-height: 48px; min-width: 48px; }

@@ -6,7 +6,6 @@ import { FloatingActions } from "./floating-actions";
 export function SiteFooter() {
   const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
   return <footer className="site-footer">
-    <p className="footer-manifesto">See beyond. Go beyond. <span>Make it happen.</span></p>
     <div className="footer-grid">
       <div className="footer-brand">
         <Link className="brand-logo brand-logo-footer" href="/" aria-label="Inspiro home">
