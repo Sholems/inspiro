@@ -36,8 +36,9 @@ export function SiteHeader() {
     };
     document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
-    return () => { document.removeEventListener("pointerdown", onPointerDown); document.removeEventListener("keydown", onKeyDown); };
-  }, []);
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.removeEventListener("pointerdown", onPointerDown); document.removeEventListener("keydown", onKeyDown); document.body.style.overflow = ""; };
+  }, [menuOpen]);
 
   const closeNavigation = () => { setMenuOpen(false); setOpenGroup(null); };
 
@@ -45,7 +46,7 @@ export function SiteHeader() {
     <button className={`nav-trigger${group.items.some((item) => item.href === pathname) ? " nav-trigger-current" : ""}`} type="button" aria-expanded={openGroup === group.id} aria-controls={`nav-panel-${group.id}`} onClick={() => setOpenGroup(openGroup === group.id ? null : group.id)}>
       {group.label}<span className="nav-chevron" aria-hidden="true" />
     </button>
-    <div className="nav-panel" id={`nav-panel-${group.id}`} hidden={openGroup !== group.id}>
+    <div className={`nav-panel${openGroup === group.id ? " nav-panel-open" : ""}`} id={`nav-panel-${group.id}`} aria-hidden={openGroup !== group.id}>
       <span className="nav-panel-eyebrow">{group.id === "explore" ? "Our world" : "Explore more"}</span>
       {group.items.map((item) => <Link href={item.href} key={item.href} aria-current={pathname === item.href ? "page" : undefined} onClick={closeNavigation}><span>{item.label}</span><small>{item.description}</small></Link>)}
     </div>
@@ -53,6 +54,7 @@ export function SiteHeader() {
 
   return <>
     <a className="skip-link" href="#main-content">Skip to content</a>
+    {menuOpen && <button className="nav-scrim" type="button" aria-label="Close navigation" onClick={closeNavigation} />}
     <header className="site-header public-header" ref={headerRef}>
       <Link className="brand-logo brand-logo-header" href="/" aria-label="Inspiro home" onClick={closeNavigation}>
         <Image src="/images/inspiro-lightbulb-logo.webp" alt="Inspiro" width={2000} height={750} priority />
@@ -61,6 +63,10 @@ export function SiteHeader() {
         <span aria-hidden="true">{menuOpen ? "Close" : "Menu"}</span><span className={`menu-toggle-icon${menuOpen ? " menu-toggle-icon-close" : ""}`} aria-hidden="true"><i /><i /><i /></span>
       </button>
       <nav className={`main-nav${menuOpen ? " main-nav-open" : ""}`} id="main-navigation" aria-label="Main navigation">
+        <div className="mobile-nav-intro">
+          <span className="mobile-nav-kicker">INSPIRO / LAGOS</span>
+          <strong>Ideas, platforms and experiences with lasting value.</strong>
+        </div>
         {renderGroup(groups[0])}
         <Link className="nav-direct" href="/our-work" aria-current={pathname === "/our-work" ? "page" : undefined} onClick={closeNavigation}>Our work</Link>
         {renderGroup(groups[1])}
